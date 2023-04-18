@@ -1,0 +1,46 @@
+[
+  {
+    "type": "cash",
+    "location": "Asia",
+    "name": "Asia cash",
+    "id": "0001"
+  },
+  {
+    "type": "stock",
+    "location": "Europe",
+    "name": "EU stock",
+    "id": "0011"
+  },
+  {
+    "type": "bond",
+    "location": "Asia",
+    "name": "Asia bond",
+    "id": "0111"
+  },
+  {
+    "type": "cash",
+    "location": "America",
+    "name": "Dollar",
+    "id": "1111"
+  },
+  {
+    "type": "cash",
+    "location": "Pacific",
+    "name": "John Smith",
+    "id": "1110",
+    "onHold": true
+  },
+  {
+    "type": "equity",
+    "location": "America",
+    "name": "Mary Lou",
+    "id": "1100"
+  },
+  {
+    "type": "bond",
+    "location": "America",
+    "name": "James Bond",
+    "id": "1000",
+    "onHold": true
+  }
+]
