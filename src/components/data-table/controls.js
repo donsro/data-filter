@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
 function Controls({ filter, setFilter }) {
   const nameRef = useRef(null);
@@ -16,23 +16,20 @@ function Controls({ filter, setFilter }) {
     }
   };
 
-  const clearAllFilters = () => {
-    idRef.current.value = null;
-    marketRef.current.value = "All";
-    nameRef.current.value = null;
-    typeRef.current.value = "All";
-    onHoldRef.current.checked = false;
-    setFilter({});
-  };
+  useEffect(() => {
+    if (Object.keys(filter).length === 0) {
+      idRef.current.value = null;
+      marketRef.current.value = "All";
+      nameRef.current.value = null;
+      typeRef.current.value = "All";
+      onHoldRef.current.checked = false;
+    }
+  }, [filter]);
 
   return (
-    <div>
-      <div className="clearAll">
-        <button onClick={clearAllFilters}>Clear all filters</button>
-      </div>
-      <h2>Filter</h2>
-      <div className="controls">
-        <div>
+    <thead>
+      <tr>
+        <th>
           <label>
             ID{" "}
             <input
@@ -40,8 +37,8 @@ function Controls({ filter, setFilter }) {
               ref={idRef}
             />
           </label>
-        </div>
-        <div>
+        </th>
+        <th>
           <label>
             Name{" "}
             <input
@@ -49,8 +46,8 @@ function Controls({ filter, setFilter }) {
               ref={nameRef}
             />
           </label>
-        </div>
-        <div>
+        </th>
+        <th>
           <label>
             Type{" "}
             <select
@@ -64,8 +61,8 @@ function Controls({ filter, setFilter }) {
               <option>Equity</option>
             </select>
           </label>
-        </div>
-        <div>
+        </th>
+        <th>
           <label>
             Location{" "}
             <select
@@ -79,8 +76,8 @@ function Controls({ filter, setFilter }) {
               <option>Pacific</option>
             </select>
           </label>
-        </div>
-        <div>
+        </th>
+        <th>
           <label>
             On hold{" "}
             <input
@@ -89,9 +86,9 @@ function Controls({ filter, setFilter }) {
               ref={onHoldRef}
             />
           </label>
-        </div>
-      </div>
-    </div>
+        </th>
+      </tr>
+    </thead>
   );
 }
 

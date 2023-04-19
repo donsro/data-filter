@@ -26,20 +26,7 @@ function DataView({ data }) {
     <DataItem key={item["id"]} data={item} />
   ));
 
-  return (
-    <table className="data-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Location</th>
-          <th>On hold</th>
-        </tr>
-      </thead>
-      <tbody>{DataItems}</tbody>
-    </table>
-  );
+  return <tbody>{DataItems}</tbody>;
 }
 
 export default DataView;
