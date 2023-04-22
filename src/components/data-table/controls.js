@@ -15,15 +15,12 @@ function Controls({ filter, setFilter }) {
         return newState;
       });
     } else {
-      setFilter((prev) => {
-        const newState = new Map(prev);
-        newState.set(key, value);
-        return newState;
-      });
+      setFilter((prev) => new Map(prev.set(key, value)));
     }
   };
 
   useEffect(() => {
+    console.log(filter);
     if (filter.size === 0) {
       idRef.current.value = null;
       marketRef.current.value = "All";

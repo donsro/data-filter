@@ -12,8 +12,6 @@ export default function () {
 
   useEffect(() => setData(DataFilter(dataIntact, filter)), [filter]);
 
-  //() => setFilter((prev) => new Map(prev.clear()))
-
   return (
     <>
       <div className="clearAll">
