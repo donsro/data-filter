@@ -7,17 +7,24 @@ function Controls({ filter, setFilter }) {
   const marketRef = useRef(null);
   const onHoldRef = useRef(null);
 
-  const handleChange = (type, value) => {
+  const handleChange = (key, value) => {
     if (value === "All" || value === "" || value === false) {
-      delete filter[type];
-      setFilter({ ...filter });
+      setFilter((prev) => {
+        const newState = new Map(prev);
+        newState.delete(key);
+        return newState;
+      });
     } else {
-      setFilter({ ...filter, [type]: value });
+      setFilter((prev) => {
+        const newState = new Map(prev);
+        newState.set(key, value);
+        return newState;
+      });
     }
   };
 
   useEffect(() => {
-    if (Object.keys(filter).length === 0) {
+    if (filter.size === 0) {
       idRef.current.value = null;
       marketRef.current.value = "All";
       nameRef.current.value = null;
