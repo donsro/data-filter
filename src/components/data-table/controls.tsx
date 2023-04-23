@@ -1,6 +1,11 @@
 import React, { useRef, useEffect } from "react";
 
-function Controls({ filter, setFilter }) {
+type ControlProps = {
+  filter: Map<string, boolean>;
+  setFilter: React.Dispatch<React.SetStateAction<Map<string, any>>>;
+};
+
+function Controls({ filter, setFilter }: ControlProps): JSX.Element {
   const nameRef = useRef(null);
   const idRef = useRef(null);
   const typeRef = useRef(null);
@@ -8,7 +13,7 @@ function Controls({ filter, setFilter }) {
   const onHoldRef = useRef(null);
 
   const handleChange = (key, value) => {
-    if (value === "All" || value === "" || value === false) {
+    if (value === "" || value === false) {
       setFilter((prev) => {
         const newState = new Map(prev);
         newState.delete(key);
@@ -58,7 +63,7 @@ function Controls({ filter, setFilter }) {
               onChange={() => handleChange("type", typeRef.current.value)}
               ref={typeRef}
             >
-              <option>All</option>
+              <option value="">All</option>
               <option>Cash</option>
               <option>Stock</option>
               <option>Bond</option>
@@ -73,7 +78,7 @@ function Controls({ filter, setFilter }) {
               onChange={() => handleChange("location", marketRef.current.value)}
               ref={marketRef}
             >
-              <option>All</option>
+              <option value="">All</option>
               <option>America</option>
               <option>Asia</option>
               <option>Europe</option>
