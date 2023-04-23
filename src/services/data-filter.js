@@ -4,11 +4,11 @@ export default function (data = [], filter = new Map()) {
 
     filter.forEach((value, key) => {
       if (typeof value === "boolean") {
-        isAllMatch.push(dataItem[key] === filter.get(key));
+        isAllMatch.push(dataItem[key] === value);
       }
       if (typeof value === "string") {
         isAllMatch.push(
-          dataItem[key].toLowerCase().includes(filter.get(key).toLowerCase())
+          dataItem[key].toLowerCase().includes(value.toLowerCase())
         );
       }
     });
