@@ -1,18 +1,19 @@
 import DataType from "../types/DataType";
-import FilterType from "../types/FilterType";
+import { FilterKeys, FilterValues } from "../types/FilterType";
 
 export default function (
   data: DataType[],
-  filter: Map<string, FilterType>
+  filter: Map<FilterKeys, FilterValues>
 ): DataType[] {
   return data.filter((dataItem: DataType): boolean => {
     let isAllMatch: Array<boolean> = [];
 
-    filter.forEach((val: FilterType, key: string): void => {
-      if (typeof val === "boolean") {
+    filter.forEach((val, key): void => {
+      if (typeof dataItem[key] === "undefined") {
+        isAllMatch.push(false);
+      } else if (typeof val === "boolean") {
         isAllMatch.push(dataItem[key] === val);
-      }
-      if (typeof val === "string" && dataItem[key] !== undefined) {
+      } else {
         isAllMatch.push(
           dataItem[key].toLowerCase().includes(val.toLowerCase())
         );

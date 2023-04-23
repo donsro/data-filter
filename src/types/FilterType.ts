@@ -1,9 +1,3 @@
-type FilterType = {
-  id?: string;
-  location?: string;
-  name?: string;
-  onHold?: boolean;
-  type?: string;
-};
+export type FilterKeys = string;
 
-export default FilterType;
+export type FilterValues = string | boolean;
