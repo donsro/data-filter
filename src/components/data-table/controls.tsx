@@ -1,18 +1,21 @@
 import React, { useRef, useEffect } from "react";
+import { FilterKeys, FilterValues } from "../../types/FilterType";
 
 type ControlProps = {
-  filter: Map<string, boolean>;
-  setFilter: React.Dispatch<React.SetStateAction<Map<string, any>>>;
+  filter: Map<FilterKeys, FilterValues>;
+  setFilter: React.Dispatch<
+    React.SetStateAction<Map<FilterKeys, FilterValues>>
+  >;
 };
 
 function Controls({ filter, setFilter }: ControlProps): JSX.Element {
-  const nameRef = useRef(null);
-  const idRef = useRef(null);
-  const typeRef = useRef(null);
-  const marketRef = useRef(null);
-  const onHoldRef = useRef(null);
+  const idRef = useRef<HTMLInputElement>(null);
+  const locationRef = useRef<HTMLSelectElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const onHoldRef = useRef<HTMLInputElement>(null);
+  const typeRef = useRef<HTMLSelectElement>(null);
 
-  const handleChange = (key, value) => {
+  const handleChange = (key: FilterKeys, value: FilterValues): void => {
     if (value === "" || value === false) {
       setFilter((prev) => {
         const newState = new Map(prev);
@@ -22,16 +25,24 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
     } else {
       setFilter((prev) => new Map(prev.set(key, value)));
     }
+
+    if (nameRef && nameRef.current) {
+      console.log(nameRef.current.value);
+    }
   };
 
   useEffect(() => {
-    console.log(filter);
     if (filter.size === 0) {
-      idRef.current.value = null;
-      marketRef.current.value = "All";
-      nameRef.current.value = null;
-      typeRef.current.value = "All";
-      onHoldRef.current.checked = false;
+      const refs = [idRef, locationRef, nameRef, onHoldRef, typeRef];
+      refs.forEach((ref) => {
+        if (ref.current) {
+          if (ref.current.type === "checkbox") {
+            ref.current["checked"] = false;
+            return;
+          }
+          ref.current.value = "";
+        }
+      });
     }
   }, [filter]);
 
@@ -42,8 +53,8 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
           <label>
             ID{" "}
             <input
-              onChange={() => handleChange("id", idRef.current.value)}
               ref={idRef}
+              onChange={(e) => handleChange("id", e.target.value)}
             />
           </label>
         </th>
@@ -51,7 +62,7 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
           <label>
             Name{" "}
             <input
-              onChange={() => handleChange("name", nameRef.current.value)}
+              onChange={(e) => handleChange("name", e.target.value)}
               ref={nameRef}
             />
           </label>
@@ -60,7 +71,7 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
           <label>
             Type{" "}
             <select
-              onChange={() => handleChange("type", typeRef.current.value)}
+              onChange={(e) => handleChange("type", e.target.value)}
               ref={typeRef}
             >
               <option value="">All</option>
@@ -75,8 +86,8 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
           <label>
             Location{" "}
             <select
-              onChange={() => handleChange("location", marketRef.current.value)}
-              ref={marketRef}
+              onChange={(e) => handleChange("location", e.target.value)}
+              ref={locationRef}
             >
               <option value="">All</option>
               <option>America</option>
@@ -91,7 +102,7 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
             On hold{" "}
             <input
               type="checkbox"
-              onChange={() => handleChange("onHold", onHoldRef.current.checked)}
+              onChange={(e) => handleChange("onHold", e.target.checked)}
               ref={onHoldRef}
             />
           </label>
