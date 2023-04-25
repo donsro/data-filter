@@ -25,13 +25,9 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
     } else {
       setFilter((prev) => new Map(prev.set(key, value)));
     }
-
-    if (nameRef && nameRef.current) {
-      console.log(nameRef.current.value);
-    }
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     if (filter.size === 0) {
       const refs = [idRef, locationRef, nameRef, onHoldRef, typeRef];
       refs.forEach((ref) => {
@@ -53,8 +49,10 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
           <label>
             ID{" "}
             <input
+              onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                handleChange("id", e.target.value)
+              }
               ref={idRef}
-              onChange={(e) => handleChange("id", e.target.value)}
             />
           </label>
         </th>
@@ -62,7 +60,9 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
           <label>
             Name{" "}
             <input
-              onChange={(e) => handleChange("name", e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                handleChange("name", e.target.value)
+              }
               ref={nameRef}
             />
           </label>
@@ -71,7 +71,9 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
           <label>
             Type{" "}
             <select
-              onChange={(e) => handleChange("type", e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>): void =>
+                handleChange("type", e.target.value)
+              }
               ref={typeRef}
             >
               <option value="">All</option>
@@ -86,7 +88,9 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
           <label>
             Location{" "}
             <select
-              onChange={(e) => handleChange("location", e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>): void =>
+                handleChange("location", e.target.value)
+              }
               ref={locationRef}
             >
               <option value="">All</option>
@@ -102,7 +106,9 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
             On hold{" "}
             <input
               type="checkbox"
-              onChange={(e) => handleChange("onHold", e.target.checked)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                handleChange("onHold", e.target.checked)
+              }
               ref={onHoldRef}
             />
           </label>
