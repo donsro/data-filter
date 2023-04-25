@@ -18,15 +18,15 @@ function DataItem(props: { data: DataType }): JSX.Element | null {
 }
 
 function DataView({ data }: { data: DataType[] }): JSX.Element | null {
-  const items = data || [];
+  const items = data;
 
-  if (!items.length) {
+  if (items.length === 0) {
     return null;
   }
 
-  const DataItems = items.map((item) => (
-    <DataItem key={item["id"]} data={item} />
-  ));
+  const DataItems = items.map(
+    (item: DataType): JSX.Element => <DataItem key={item["id"]} data={item} />
+  );
 
   return <tbody>{DataItems}</tbody>;
 }
