@@ -32,8 +32,11 @@ function Controls({ filter, setFilter }: ControlProps): JSX.Element {
       const refs = [idRef, locationRef, nameRef, onHoldRef, typeRef];
       refs.forEach((ref) => {
         if (ref.current) {
-          if (ref.current.type === "checkbox") {
-            ref.current["checked"] = false;
+          if (
+            ref.current instanceof HTMLInputElement &&
+            ref.current.type === "checkbox"
+          ) {
+            ref.current.checked = false;
             return;
           }
           ref.current.value = "";
