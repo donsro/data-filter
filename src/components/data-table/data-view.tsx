@@ -1,9 +1,11 @@
 import React from "react";
+import DataType from "../../types/DataType";
 
-function DataItem(props) {
+function DataItem(props: { data: DataType }): JSX.Element | null {
   const {
     data: { id, name, type, location, onHold },
   } = props;
+
   return (
     <tr>
       <td>{id}</td>
@@ -15,16 +17,16 @@ function DataItem(props) {
   );
 }
 
-function DataView({ data }) {
-  const items = data || [];
+function DataView({ data }: { data: DataType[] }): JSX.Element | null {
+  const items = data;
 
-  if (!items.length) {
+  if (items.length === 0) {
     return null;
   }
 
-  const DataItems = items.map((item) => (
-    <DataItem key={item["id"]} data={item} />
-  ));
+  const DataItems = items.map(
+    (item: DataType): JSX.Element => <DataItem key={item["id"]} data={item} />
+  );
 
   return <tbody>{DataItems}</tbody>;
 }
