@@ -9,13 +9,12 @@ export default function (
     let isAllMatch: Array<boolean> = [];
 
     filter.forEach((val, key): void => {
-      if (typeof dataItem[key] === "undefined") {
-        isAllMatch.push(false);
-      } else if (typeof val === "boolean") {
+      if (typeof val === "boolean") {
         isAllMatch.push(dataItem[key] === val);
       } else {
         isAllMatch.push(
-          dataItem[key].toLowerCase().includes(val.toLowerCase())
+          dataItem[key]?.toString().toLowerCase().includes(val.toLowerCase()) ??
+            false
         );
       }
     });
