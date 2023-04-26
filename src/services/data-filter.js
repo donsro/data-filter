@@ -1,14 +1,20 @@
-export default function (data = [], filter = new Map()) {
-  return data.filter((dataItem) => {
-    let isAllMatch = [];
+import DataType from "../types/DataType";
+import { FilterKeys, FilterValues } from "../types/FilterType";
 
-    filter.forEach((value, key) => {
-      if (typeof value === "boolean") {
-        isAllMatch.push(dataItem[key] === value);
-      }
-      if (typeof value === "string") {
+export default function (
+  data: DataType[],
+  filter: Map<FilterKeys, FilterValues>
+): DataType[] {
+  return data.filter((dataItem: DataType): boolean => {
+    let isAllMatch: Array<boolean> = [];
+
+    filter.forEach((val, key): void => {
+      if (typeof val === "boolean") {
+        isAllMatch.push(dataItem[key] === val);
+      } else {
         isAllMatch.push(
-          dataItem[key].toLowerCase().includes(value.toLowerCase())
+          dataItem[key]?.toString().toLowerCase().includes(val.toLowerCase()) ??
+            false
         );
       }
     });
